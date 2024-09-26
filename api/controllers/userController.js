@@ -178,6 +178,123 @@ export const addUser = async (req, res) => {
   }
 };
 
+export const updateUser = async (req, res) => {
+  let conn;
+  // Get the user ID from the route parameter
+  let id = req.params.id;
+  try {
+    // Get the user details from the request body
+    const {
+      first_name,
+      last_name,
+      personal_id,
+      date_of_birth,
+      email,
+      alternative_email,
+      mobile_number,
+      alternative_mobile_number,
+      photo_url,
+      position,
+      gender,
+    } = req.body;
+
+    // Check if the user ID is provided
+    if (!id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    // Check if at least one field is provided for update
+    if (
+      !first_name &&
+      !last_name &&
+      !personal_id &&
+      !date_of_birth &&
+      !email &&
+      !alternative_email &&
+      !mobile_number &&
+      !alternative_mobile_number &&
+      !photo_url &&
+      !position &&
+      !gender
+    ) {
+      return res.status(400).json({ message: "No fields to update" });
+    }
+
+    // Get a connection from the pool
+    conn = await pool.getConnection();
+
+    // Build the query dynamically based on provided fields
+    const fieldsToUpdate = [];
+    const values = [];
+
+    if (first_name) {
+      fieldsToUpdate.push("first_name = ?");
+      values.push(first_name);
+    }
+    if (last_name) {
+      fieldsToUpdate.push("last_name = ?");
+      values.push(last_name);
+    }
+    if (personal_id) {
+      fieldsToUpdate.push("personal_id = ?");
+      values.push(personal_id);
+    }
+    if (date_of_birth) {
+      fieldsToUpdate.push("date_of_birth = ?");
+      values.push(date_of_birth);
+    }
+    if (email) {
+      fieldsToUpdate.push("email = ?");
+      values.push(email);
+    }
+    if (alternative_email) {
+      fieldsToUpdate.push("alternative_email = ?");
+      values.push(alternative_email);
+    }
+    if (mobile_number) {
+      fieldsToUpdate.push("mobile_number = ?");
+      values.push(mobile_number);
+    }
+    if (alternative_mobile_number) {
+      fieldsToUpdate.push("alternative_mobile_number = ?");
+      values.push(alternative_mobile_number);
+    }
+    if (photo_url) {
+      fieldsToUpdate.push("photo_url = ?");
+      values.push(photo_url);
+    }
+    if (position) {
+      fieldsToUpdate.push("position = ?");
+      values.push(position);
+    }
+    if (gender) {
+      fieldsToUpdate.push("gender = ?");
+      values.push(gender);
+    }
+
+    // Construct the final query
+    const query = `UPDATE users SET ${fieldsToUpdate.join(", ")} WHERE id = ?`;
+    // Add userId as the last value for the WHERE clause;
+    values.push(id);
+
+    const result = await conn.query(query, values);
+
+    // Check if the user was found and updated
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Send success response
+    res.status(200).json({ message: "User updated successfully" });
+  } catch (error) {
+    console.error("Error:" + error);
+    res.status(500).send("Error updating user to the database");
+  } finally {
+    // Release the connection back to the pool
+    if (conn) conn.release();
+  }
+};
+
 export const deleteUser = async (req, res) => {
   let conn;
   // Get the user ID from the route parameter
