@@ -177,3 +177,34 @@ export const addUser = async (req, res) => {
     if (conn) conn.release();
   }
 };
+
+export const deleteUser = async (req, res) => {
+  let conn;
+  // Get the user ID from the route parameter
+  let id = req.params.id;
+  try {
+    // Get the user ID from the route parameter
+    conn = await pool.getConnection();
+
+    // First, check if the user exists
+    const checkUserQuery = `SELECT * FROM users WHERE id = ?`;
+    const userResult = await conn.query(checkUserQuery, [id]);
+
+    // If the user does not exist, return a 404 status
+    if (userResult.length == 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If the user exists, proceed to delete
+    const deleteQuery = `DELETE FROM users WHERE id = ?`;
+    await conn.query(deleteQuery, [id]);
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error: " + err);
+    res.status(500).send("Error deleting user from the database");
+  } finally {
+    // Release the connection back to the pool
+    if (conn) conn.release();
+  }
+};
