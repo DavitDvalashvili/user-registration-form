@@ -110,18 +110,68 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const getAllUsers = async (req, res) => {
+export const addUser = async (req, res) => {
   let conn;
   try {
+    // Get the user details from the request body
+    const {
+      first_name,
+      last_name,
+      personal_id,
+      date_of_birth,
+      email,
+      alternative_email,
+      mobile_number,
+      alternative_mobile_number,
+      photo_url,
+      position,
+      gender,
+    } = req.body;
+
+    // Check if all required fields are present
+    if (!first_name || !last_name || !personal_id || !date_of_birth) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
     // Get a connection from the pool
     conn = await pool.getConnection();
 
-    const result = await conn.query("SELECT * FROM users");
+    //Insert new user into database
+    const query = `INSERT INTO users (first_name,
+      last_name,
+      personal_id,
+      date_of_birth,
+      email,
+      alternative_email,
+      mobile_number,
+      alternative_mobile_number,
+      photo_url,
+      position,
+      gender)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    res.status(200).json(result);
-  } catch (err) {
-    console.error("Error: " + err);
-    es.status(500).send("Error retrieving users from the database");
+    const result = await conn.query(query, [
+      first_name,
+      last_name,
+      personal_id,
+      date_of_birth,
+      email,
+      alternative_email,
+      mobile_number,
+      alternative_mobile_number,
+      photo_url,
+      position,
+      gender,
+    ]);
+
+    // Send success response with the inserted user ID
+    res.status(201).json({
+      message: "User added successfully",
+      userId: Number(result.insertId),
+    });
+  } catch (error) {
+    console.error("Error:" + error);
+    res.status(500).send("Error adding user to the database");
   } finally {
     // Release the connection back to the pool
     if (conn) conn.release();
