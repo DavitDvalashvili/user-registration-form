@@ -71,7 +71,7 @@ export const getUsers = async (req, res) => {
     const totalPages = Math.ceil(total / pageSize);
 
     res.status(200).json({
-      data: result,
+      users: result,
       total,
       page,
       totalPages,
