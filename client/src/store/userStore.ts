@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { usersState } from "../type";
+import { usersState } from "../types/usersType";
 
 // Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
@@ -20,7 +20,7 @@ export const useUserStore = create<usersState>((set) => ({
     set({ loading: true });
 
     try {
-      const response = await axios.get(`${Api_Url}get/`, { params });
+      const response = await axios.get(`${Api_Url}users/get/`, { params });
       set({ usersData: response.data, error: "" });
     } catch (error) {
       console.error("Error fetching users data:", error);

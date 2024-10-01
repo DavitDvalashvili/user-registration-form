@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { user } from "../type";
+import { user } from "../types/usersType";
 
 const Home = () => {
   // Initialize form with react-hook-form
