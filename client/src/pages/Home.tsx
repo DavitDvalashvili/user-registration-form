@@ -158,7 +158,6 @@ const Home = () => {
               className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1 "
               type="text"
               {...register("email", {
-                required: "სავალდებულო ველი",
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                   message: "ელ.ფოსტის ფორმატი არასწორია",
@@ -182,7 +181,6 @@ const Home = () => {
               className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1 "
               type="text"
               {...register("alternative_email", {
-                required: "სავალდებულო ველი",
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                   message: "ელ.ფოსტის ფორმატი არასწორია",
@@ -193,23 +191,47 @@ const Home = () => {
         </div>
         <div className="flex gap-2 items-end">
           <label
-            htmlFor="alternative_email"
+            htmlFor="mobile_number"
             className="font-semibold text-SheetMetal w-[150px]"
           >
-            ალტერნატიული ელ. ფოსტა
+            მობილურის ნომერი
           </label>
           <div className="flex flex-col items-end">
             <span className="text-[10px] text-ChinChinCherry h-4">
-              {errors.alternative_email?.message}
+              {errors.mobile_number?.message}
             </span>
             <input
               className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1 "
               type="text"
-              {...register("alternative_email", {
-                required: "სავალდებულო ველი",
+              {...register("mobile_number", {
                 pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: "ელ.ფოსტის ფორმატი არასწორია",
+                  value:
+                    /^(511|514|551|555|557|558|559|568|570|571|574|577|579|591|592|593|595|596|597|598|599)\d{6}$/,
+                  message: "მობილურის ნომრის ფორმატი არასწორია",
+                },
+              })}
+            />
+          </div>
+        </div>
+        <div className="flex gap-2 items-end">
+          <label
+            htmlFor="alternative_mobile_number"
+            className="font-semibold text-SheetMetal w-[150px]"
+          >
+            ალტერნატიული მობილურის ნომერი
+          </label>
+          <div className="flex flex-col items-end">
+            <span className="text-[10px] text-ChinChinCherry h-4">
+              {errors.alternative_mobile_number?.message}
+            </span>
+            <input
+              className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1 "
+              type="text"
+              {...register("alternative_mobile_number", {
+                pattern: {
+                  value:
+                    /^(511|514|551|555|557|558|559|568|570|571|574|577|579|591|592|593|595|596|597|598|599)\d{6}$/,
+                  message: "მობილურის ნომრის ფორმატი არასწორია",
                 },
               })}
             />
