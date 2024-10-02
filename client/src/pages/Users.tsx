@@ -1,9 +1,7 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
 
 const Users = () => {
-  const { id } = useParams();
   const {
     getUsers,
     //loading,
@@ -13,7 +11,7 @@ const Users = () => {
 
   useEffect(() => {
     getUsers({ search_term: "", page: "" });
-  }, [id, getUsers]);
+  }, [getUsers]);
 
   return (
     <div>
