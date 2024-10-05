@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { usersState } from "../types/usersType";
+import { usersState, user } from "../types/usersType";
 
 // Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
@@ -27,6 +27,29 @@ export const useUserStore = create<usersState>((set) => ({
       console.log(error);
     } finally {
       set({ loading: false });
+    }
+  },
+
+  // Add a new user
+  addUsers: async (newUser: user) => {
+    try {
+      const response = await axios.post(`${Api_Url}/users/add`, newUser);
+      set((state) => ({
+        usersData: {
+          ...state.usersData,
+          users: [...state.usersData.users, response.data],
+        },
+      }));
+    } catch (error) {
+      // Check if the error is an AxiosError and has a response
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 409) {
+          set({ error: "User already exists" });
+        }
+      } else {
+        console.error("Error adding user:", error);
+        set({ error: "Error adding user" });
+      }
     }
   },
 }));

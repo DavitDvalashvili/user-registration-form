@@ -8,15 +8,5 @@ const pool = mariadb.createPool({
   port: 3308,
 });
 
-// pool
-//   .getConnection()
-//   .then((conn) => {
-//     console.log("connected to the mariaDB database !");
-//     conn.end();
-//   })
-//   .catch((err) => {
-//     console.log("not connected due to error: " + err);
-//   });
-
 // Export the pool for use in other modules
 export default pool;

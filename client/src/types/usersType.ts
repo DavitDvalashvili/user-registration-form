@@ -3,6 +3,7 @@ export type usersState = {
   usersData: userData;
   error: string;
   getUsers: (params: { search_term: string; page: string }) => Promise<void>;
+  addUsers: (newUser: user) => Promise<void>;
 };
 
 export type userData = {
@@ -25,4 +26,10 @@ export type user = {
   photo_url: string;
   position: string;
   gender: string;
+};
+
+export type imageReview = {
+  setImageReview: React.Dispatch<React.SetStateAction<boolean>>;
+  imageUrl: string;
+  user: user;
 };

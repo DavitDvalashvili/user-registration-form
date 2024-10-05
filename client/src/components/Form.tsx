@@ -4,10 +4,19 @@ import CustomSelect from "../components/CustomSelect";
 import { FaMobileAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { useState } from "react";
+import { useUploadStore } from "../store/upload";
+import { useUserStore } from "../store/userStore";
 
 const Form = () => {
   const [showAltMobile, setShowAltMobile] = useState<boolean>(false);
   const [showAltEmail, setShowAlEmail] = useState<boolean>(false);
+
+  const { uploadImage } = useUploadStore();
+  const {
+    addUsers,
+    //loading,
+    //error
+  } = useUserStore();
 
   // Initialize form with react-hook-form
   const {
@@ -18,7 +27,18 @@ const Form = () => {
   } = useForm<user>();
 
   const onSubmit: SubmitHandler<user> = async (data) => {
-    console.log(data);
+    await addUsers(data);
+  };
+
+  // Handle PDF file upload
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const response = await uploadImage(file);
+      console.log(response);
+    }
   };
 
   return (
@@ -311,6 +331,7 @@ const Form = () => {
               className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1 w-[200px]  lg:w-[250px] "
               type="file"
               {...register("photo_url")}
+              onChange={handleImageChange}
             />
           </div>
         </div>
