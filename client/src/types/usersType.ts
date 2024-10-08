@@ -10,7 +10,7 @@ export type userData = {
   users: user[];
   total: number;
   page: number;
-  totalPage: number;
+  totalPages: number;
 };
 
 export type user = {

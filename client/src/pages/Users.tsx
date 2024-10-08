@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUserStore } from "../store/userStore";
 import SearchBox from "../components/SearchBox";
+import Pagination from "../components/Pagination";
 
 const Users = () => {
   const { getUsers, usersData } = useUserStore();
@@ -11,9 +12,15 @@ const Users = () => {
     getUsers({ searchTerm: `${searchTerm}`, page: `${page}` });
   }, [getUsers, searchTerm, page]);
 
+  console.log(usersData.totalPages);
+
   return (
     <div className="overflow-x-auto py-10 px-[100px] ">
-      <SearchBox setSearchTerm={setSearchTerm} />
+      <div className="flex justify-between items-center">
+        <SearchBox setSearchTerm={setSearchTerm} />
+        <Pagination totalPages={usersData.totalPages} setPage={setPage} />
+      </div>
+
       {usersData?.users?.length > 0 ? (
         <table className="min-w-full bg-white mt-10">
           <thead>
