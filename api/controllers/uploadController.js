@@ -32,6 +32,6 @@ export const uploadImage = (req, res) => {
     }
 
     // Return the filename in the response
-    res.status(200).json({ filename: req.file.filename });
+    res.status(200).json({ photoUrl: `/images/${req.file.filename}` });
   });
 };

@@ -18,7 +18,6 @@ export const useUserStore = create<usersState>((set) => ({
   // Fetch users based on given parameters
   getUsers: async (params) => {
     set({ loading: true });
-
     try {
       const response = await axios.get(`${Api_Url}users/get/`, { params });
       set({ usersData: response.data, error: "" });
@@ -33,11 +32,13 @@ export const useUserStore = create<usersState>((set) => ({
   // Add a new user
   addUsers: async (newUser: user) => {
     try {
-      const response = await axios.post(`${Api_Url}/users/add`, newUser);
+      const response = await axios.post(`${Api_Url}users/add`, newUser);
+
+      // Corrected update for usersData
       set((state) => ({
         usersData: {
-          ...state.usersData,
-          users: [...state.usersData.users, response.data],
+          ...state.usersData, // Spread the existing usersData
+          users: [...state.usersData.users, response.data], // Add the new user to the users array
         },
       }));
     } catch (error) {

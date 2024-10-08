@@ -8,7 +8,7 @@ export const getUsers = async (req, res) => {
   // Get the page number from the query parameters, default to 1
   const page = parseInt(req.query.page, 10) || 1;
   // Number of users per page
-  const pageSize = 5;
+  const pageSize = 10;
   // Calculate the offset for the query
   const offset = (page - 1) * pageSize;
 
@@ -123,7 +123,7 @@ export const addUser = async (req, res) => {
       alternative_email,
       mobile_number,
       alternative_mobile_number,
-      photo_url,
+      photo_url = "../../public/image.png",
       position,
       gender,
     } = req.body;
