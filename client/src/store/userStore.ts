@@ -16,7 +16,7 @@ export const useUserStore = create<usersState>((set) => ({
   },
 
   // Fetch users based on given parameters
-  getUsers: async (params) => {
+  getUsers: async (params: { searchTerm: string; page: string }) => {
     set({ loading: true });
     try {
       const response = await axios.get(`${Api_Url}users/get/`, { params });

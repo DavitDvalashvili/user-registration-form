@@ -2,7 +2,7 @@ export type usersState = {
   loading: boolean;
   usersData: userData;
   error: string;
-  getUsers: (params: { search_term: string; page: string }) => Promise<void>;
+  getUsers: (params: { searchTerm: string; page: string }) => Promise<void>;
   addUsers: (newUser: user) => Promise<void>;
 };
 
@@ -32,4 +32,8 @@ export type imageReview = {
   setImageReview: React.Dispatch<React.SetStateAction<boolean>>;
   imageUrl: string;
   user: user;
+};
+
+export type SearchBoxProps = {
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
