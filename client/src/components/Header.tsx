@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="w-full bg-AntarcticDeep p-5 text-white sticky top-0 left-0 z-10 flex justify-end items-center space-x-10 ">
+    <header className="w-full bg-AntarcticDeep p-5 text-white sticky top-0 left-0 z-2 flex justify-end items-center space-x-10 ">
       <nav>
         <ul className="flex justify-end space-x-10">
           <li className="px-2 py-1 text-md lg:text-xl relative group">

@@ -37,3 +37,8 @@ export type imageReview = {
 export type SearchBoxProps = {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
+
+export type DetailViewProps = {
+  targetUser: user;
+  setShowDetailView: React.Dispatch<React.SetStateAction<boolean>>;
+};

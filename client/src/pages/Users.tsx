@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { useUserStore } from "../store/userStore";
 import SearchBox from "../components/SearchBox";
 import Pagination from "../components/Pagination";
+import DetailView from "../components/DetailView";
+import { user } from "../types/usersType";
 
 const Users = () => {
   const { getUsers, usersData } = useUserStore();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [page, setPage] = useState<string>("");
+  const [targetUser, setTargetUser] = useState<user>(usersData.users[0]);
+  const [showDetailView, setShowDetailView] = useState<boolean>(false);
 
   useEffect(() => {
     getUsers({ searchTerm: `${searchTerm}`, page: `${page}` });
@@ -66,13 +70,16 @@ const Users = () => {
                   {user.mobile_number}
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
-                  <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-5">
+                  <button
+                    onClick={() => {
+                      setTargetUser(user);
+                      setShowDetailView(true);
+                    }}
+                    className="bg-NorthAtlanticBreeze text-white px-4 py-2 rounded mr-10 transition-transform duration-200 hover:shadow-lg hover:scale-105"
+                  >
                     დეტალურად
                   </button>
-                  <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-5">
-                    რედაქტირება
-                  </button>
-                  <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-5">
+                  <button className="bg-ChinChinCherry text-white px-4 py-2 rounded  transition-transform duration-200 hover:shadow-lg hover:scale-105">
                     წაშლა
                   </button>
                 </td>
@@ -82,6 +89,12 @@ const Users = () => {
         </table>
       ) : (
         <div>No users available</div>
+      )}
+      {showDetailView && (
+        <DetailView
+          targetUser={targetUser}
+          setShowDetailView={setShowDetailView}
+        />
       )}
     </div>
   );
