@@ -3,6 +3,10 @@ export type usersState = {
   usersData: userData;
   error: string;
   getUsers: (params: { searchTerm: string; page: string }) => Promise<void>;
+  deleteAlternativeContact: (params: {
+    id: string;
+    type: string;
+  }) => Promise<void>;
   addUsers: (newUser: user) => Promise<void>;
   updateUser: (user: user) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;

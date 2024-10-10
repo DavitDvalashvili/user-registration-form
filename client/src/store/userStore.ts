@@ -85,4 +85,36 @@ export const useUserStore = create<usersState>((set) => ({
       console.error("Error deleting user:", error);
     }
   },
+
+  deleteAlternativeContact: async (params: { id: string; type: string }) => {
+    const { id, type } = params;
+    try {
+      // Ensure that type is either 'email' or 'mobile'
+      if (type !== "email" && type !== "mobile") {
+        throw new Error("Invalid contact type. Use 'email' or 'mobile'.");
+      }
+
+      // Make the DELETE request to the server, passing the type as a query parameter
+      await axios.delete(`${Api_Url}users/deleteContact/${id}/?type=${type}`);
+
+      // Update the state to remove the specific contact type from the user's data
+      set((state) => ({
+        usersData: {
+          ...state.usersData,
+          users: state.usersData.users.map((user) =>
+            user.id === id
+              ? {
+                  ...user,
+                  [type === "email"
+                    ? "alternative_email"
+                    : "alternative_mobile_number"]: "",
+                }
+              : user
+          ),
+        },
+      }));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  },
 }));

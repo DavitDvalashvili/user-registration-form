@@ -6,15 +6,11 @@ const DeleteAdditionalInfo = ({
   setDeleteAdditionalInfo,
   user,
 }: DeleteAdditional) => {
-  const { updateUser } = useUserStore();
+  const { deleteAlternativeContact } = useUserStore();
 
   // Delete component and navigate to components page
   const handleDelete = async () => {
-    if (deleteTarget == "email") {
-      await updateUser({ ...user, alternative_email: "" });
-    } else if (deleteTarget == "mobile_number") {
-      await updateUser({ ...user, alternative_mobile_number: "" });
-    }
+    await deleteAlternativeContact({ id: user.id, type: deleteTarget });
     setDeleteAdditionalInfo(false);
   };
 

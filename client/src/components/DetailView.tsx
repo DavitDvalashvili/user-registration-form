@@ -96,7 +96,7 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
                 setDeleteTarget("email");
               }}
             >
-              <FaMobileAlt className="text-[20px]" />
+              <MdOutlineEmail className="text-[20px]" />
               <span>ალტ. მეილის წაშლა</span>
             </div>
           )}
@@ -104,10 +104,10 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
             <div
               className="text-ChinChinCherry flex gap-3 items-top justify-center cursor-pointer font-semibold"
               onClick={() => {
-                setDeleteTarget("mobile_number");
+                setDeleteTarget("mobile");
               }}
             >
-              <MdOutlineEmail className="text-[20px]" />{" "}
+              <FaMobileAlt className="text-[20px]" />
               <span>ალტ. მობილურის წაშლა</span>
             </div>
           )}

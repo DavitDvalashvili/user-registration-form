@@ -355,7 +355,7 @@ const Form = () => {
             setShowAlEmail(!showAltEmail);
           }}
         >
-          <FaMobileAlt className="text-[20px]" />
+          <MdOutlineEmail className="text-[20px]" />
           <span>
             {showAltEmail ? "ალტ. მეილის წაშლა" : "ალტ. მეილის დამატება"}
           </span>
@@ -368,7 +368,7 @@ const Form = () => {
             setShowAltMobile(!showAltMobile);
           }}
         >
-          <MdOutlineEmail className="text-[20px]" />{" "}
+          <FaMobileAlt className="text-[20px]" />
           <span>
             {showAltMobile ? "ალტ. მობილურის წაშლა" : "ალტ. მობილურის დამატება"}
           </span>
