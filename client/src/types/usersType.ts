@@ -4,6 +4,7 @@ export type usersState = {
   error: string;
   getUsers: (params: { searchTerm: string; page: string }) => Promise<void>;
   addUsers: (newUser: user) => Promise<void>;
+  updateUser: (user: user) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;
 };
 
@@ -53,5 +54,6 @@ export type DeleteBoxProps = {
 
 export type DeleteAdditional = {
   deleteTarget: string;
+  user: user;
   setDeleteAdditionalInfo: React.Dispatch<React.SetStateAction<boolean>>;
 };

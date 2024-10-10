@@ -93,7 +93,7 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
             <div
               className="text-ChinChinCherry flex gap-3 items-top justify-center cursor-pointer font-semibold"
               onClick={() => {
-                setDeleteTarget("ალტერნატიული მეილი");
+                setDeleteTarget("email");
               }}
             >
               <FaMobileAlt className="text-[20px]" />
@@ -104,7 +104,7 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
             <div
               className="text-ChinChinCherry flex gap-3 items-top justify-center cursor-pointer font-semibold"
               onClick={() => {
-                setDeleteTarget("ალტერნატიული მობილურის ნომერი");
+                setDeleteTarget("mobile_number");
               }}
             >
               <MdOutlineEmail className="text-[20px]" />{" "}
@@ -128,6 +128,7 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
       {deleteAdditionalInfo && (
         <DeleteAdditionalInfo
           deleteTarget={deleteTarget}
+          user={user}
           setDeleteAdditionalInfo={setDeleteAdditionalInfo}
         />
       )}

@@ -325,3 +325,52 @@ export const deleteUser = async (req, res) => {
     if (conn) conn.release();
   }
 };
+
+export const deleteAlternativeContact = async (req, res) => {
+  let conn;
+  const id = req.params.id;
+  const { type } = req.query;
+
+  try {
+    // Get a connection from the pool
+    conn = await pool.getConnection();
+
+    // Define the query and the field to update based on the type
+    let query;
+    if (type === "email") {
+      query = `UPDATE users SET alternative_email = NULL WHERE id = ?`;
+    } else if (type === "mobile") {
+      query = `UPDATE users SET alternative_mobile_number = NULL WHERE id = ?`;
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Invalid contact type. Use 'email' or 'mobile'." });
+    }
+
+    // Execute the query
+    const result = await conn.query(query, [id]);
+
+    // Check if the user was found and updated
+    if (result.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ message: "User not found or no contact info to delete" });
+    }
+
+    // Respond based on the type
+    const message =
+      type === "email"
+        ? "Alternative email deleted successfully"
+        : "Alternative mobile number deleted successfully";
+
+    res.status(200).json({ message });
+  } catch (error) {
+    console.error("Error: " + error);
+    res
+      .status(500)
+      .send("Error deleting alternative contact info from the database");
+  } finally {
+    // Release the connection back to the pool
+    if (conn) conn.release();
+  }
+};

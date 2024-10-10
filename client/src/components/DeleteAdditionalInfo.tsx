@@ -4,17 +4,20 @@ import { useUserStore } from "../store/userStore";
 const DeleteAdditionalInfo = ({
   deleteTarget,
   setDeleteAdditionalInfo,
+  user,
 }: DeleteAdditional) => {
-    const { updateUser, getUsers } = useUserStore();
+  const { updateUser } = useUserStore();
 
   // Delete component and navigate to components page
   const handleDelete = async () => {
-    if (deleteTarget ==) {
-      await deleteUser(user.id);
-      await getUsers({ searchTerm: `${searchTerm}`, page: `${page}` });
-      setShowDelete(false);
+    if (deleteTarget == "email") {
+      await updateUser({ ...user, alternative_email: "" });
+    } else if (deleteTarget == "mobile_number") {
+      await updateUser({ ...user, alternative_mobile_number: "" });
     }
+    setDeleteAdditionalInfo(false);
   };
+
   return (
     <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-6">
       <div className=" border border-gray-300 rounded-lg bg-white shadow-md mb-4 p-10">
