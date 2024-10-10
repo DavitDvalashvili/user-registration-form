@@ -4,6 +4,7 @@ export type usersState = {
   error: string;
   getUsers: (params: { searchTerm: string; page: string }) => Promise<void>;
   addUsers: (newUser: user) => Promise<void>;
+  deleteUser: (id: string) => Promise<void>;
 };
 
 export type userData = {
@@ -39,6 +40,18 @@ export type SearchBoxProps = {
 };
 
 export type DetailViewProps = {
-  targetUser: user;
+  user: user;
   setShowDetailView: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type DeleteBoxProps = {
+  user: user;
+  searchTerm: string;
+  page: string;
+  setShowDelete: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type DeleteAdditional = {
+  deleteTarget: string;
+  setDeleteAdditionalInfo: React.Dispatch<React.SetStateAction<boolean>>;
 };

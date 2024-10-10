@@ -11,7 +11,7 @@ export const useUserStore = create<usersState>((set) => ({
   usersData: {
     total: 1,
     page: 1,
-    totalPage: 1,
+    totalPages: 1,
     users: [],
   },
 
@@ -38,7 +38,7 @@ export const useUserStore = create<usersState>((set) => ({
       set((state) => ({
         usersData: {
           ...state.usersData, // Spread the existing usersData
-          users: [...state.usersData.users, response.data], // Add the new user to the users array
+          users: [...state.usersData.users, response.data],
         },
       }));
     } catch (error) {
@@ -51,6 +51,38 @@ export const useUserStore = create<usersState>((set) => ({
         console.error("Error adding user:", error);
         set({ error: "Error adding user" });
       }
+    }
+  },
+
+  updateUser: async (user: user) => {
+    try {
+      const { id, ...updatedUser } = user;
+      const response = await axios.put(
+        `${Api_Url}users/update/${id}`,
+        updatedUser
+      );
+      set((state) => ({
+        usersData: {
+          ...state.usersData,
+          users: [...state.usersData.users, response.data],
+        },
+      }));
+    } catch (error) {
+      console.error("Error updating component:", error);
+    }
+  },
+
+  deleteUser: async (id: string) => {
+    try {
+      await axios.delete(`${Api_Url}users/delete/${id}`);
+      set((state) => ({
+        usersData: {
+          ...state.usersData,
+          users: state.usersData.users.filter((user) => user.id !== id),
+        },
+      }));
+    } catch (error) {
+      console.error("Error deleting user:", error);
     }
   },
 }));

@@ -4,6 +4,7 @@ import SearchBox from "../components/SearchBox";
 import Pagination from "../components/Pagination";
 import DetailView from "../components/DetailView";
 import { user } from "../types/usersType";
+import DeleteBox from "../components/DeleteBox";
 
 const Users = () => {
   const { getUsers, usersData } = useUserStore();
@@ -11,12 +12,11 @@ const Users = () => {
   const [page, setPage] = useState<string>("");
   const [targetUser, setTargetUser] = useState<user>(usersData.users[0]);
   const [showDetailView, setShowDetailView] = useState<boolean>(false);
+  const [showDelete, setShowDelete] = useState<boolean>(false);
 
   useEffect(() => {
     getUsers({ searchTerm: `${searchTerm}`, page: `${page}` });
   }, [getUsers, searchTerm, page]);
-
-  console.log(usersData.totalPages);
 
   return (
     <div className="overflow-x-auto py-10 px-[100px] ">
@@ -69,17 +69,26 @@ const Users = () => {
                 <td className="px-6 py-4 border-b border-gray-200 align-middle">
                   {user.mobile_number}
                 </td>
-                <td className="px-6 py-4 border-b border-gray-200">
+                <td
+                  className="px-6 py-4 border-b border-gray-200"
+                  onClick={() => {
+                    setTargetUser(user);
+                  }}
+                >
                   <button
                     onClick={() => {
-                      setTargetUser(user);
                       setShowDetailView(true);
                     }}
                     className="bg-NorthAtlanticBreeze text-white px-4 py-2 rounded mr-10 transition-transform duration-200 hover:shadow-lg hover:scale-105"
                   >
                     დეტალურად
                   </button>
-                  <button className="bg-ChinChinCherry text-white px-4 py-2 rounded  transition-transform duration-200 hover:shadow-lg hover:scale-105">
+                  <button
+                    onClick={() => {
+                      setShowDelete(true);
+                    }}
+                    className="bg-ChinChinCherry text-white px-4 py-2 rounded  transition-transform duration-200 hover:shadow-lg hover:scale-105"
+                  >
                     წაშლა
                   </button>
                 </td>
@@ -91,9 +100,14 @@ const Users = () => {
         <div>No users available</div>
       )}
       {showDetailView && (
-        <DetailView
-          targetUser={targetUser}
-          setShowDetailView={setShowDetailView}
+        <DetailView user={targetUser} setShowDetailView={setShowDetailView} />
+      )}
+      {showDelete && (
+        <DeleteBox
+          user={targetUser}
+          searchTerm={searchTerm}
+          page={page}
+          setShowDelete={setShowDelete}
         />
       )}
     </div>
