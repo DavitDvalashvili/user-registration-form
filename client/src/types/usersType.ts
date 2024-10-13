@@ -24,7 +24,7 @@ export type user = {
   first_name: string;
   last_name: string;
   personal_id: string;
-  date_of_birth: Date;
+  date_of_birth: string;
   email: string;
   alternative_email: string;
   mobile_number: string;
@@ -60,4 +60,9 @@ export type DeleteAdditional = {
   deleteTarget: string;
   user: user;
   setDeleteAdditionalInfo: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowDetailView: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type updateProps = {
+  user: user;
 };

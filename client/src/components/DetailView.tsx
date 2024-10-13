@@ -4,8 +4,10 @@ import { FaMobileAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import DeleteAdditionalInfo from "./DeleteAdditionalInfo";
 import { useState } from "react";
+import UpdateBox from "./UpdateBox";
 
 const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [deleteTarget, setDeleteTarget] = useState<string>("");
   const [deleteAdditionalInfo, setDeleteAdditionalInfo] =
     useState<boolean>(false);
@@ -120,8 +122,13 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
           >
             დახურვა
           </button>
-          <button className="bg-NorthAtlanticBreeze text-white px-4 py-2 text-sm rounded transition-transform duration-200 hover:shadow-lg hover:scale-105">
-            რედაქტირება
+          <button
+            className="bg-NorthAtlanticBreeze text-white px-4 py-2 text-sm rounded transition-transform duration-200 hover:shadow-lg hover:scale-105"
+            onClick={() => {
+              setShowUpdate(true);
+            }}
+          >
+            განახლება
           </button>
         </div>
       </div>
@@ -130,8 +137,10 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
           deleteTarget={deleteTarget}
           user={user}
           setDeleteAdditionalInfo={setDeleteAdditionalInfo}
+          setShowDetailView={setShowDetailView}
         />
       )}
+      {showUpdate && <UpdateBox user={user} />}
     </div>
   );
 };

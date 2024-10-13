@@ -7,7 +7,7 @@ type CustomSelectProps = {
   register: UseFormRegister<user>;
 };
 
-const CustomSelect = ({ register }: CustomSelectProps) => {
+const CustomSelect = ({ register, setValue }: CustomSelectProps) => {
   const { getPositions, positions } = usePositionStore();
 
   useEffect(() => {

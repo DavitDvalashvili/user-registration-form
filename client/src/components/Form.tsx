@@ -13,11 +13,7 @@ const Form = () => {
   const [url, setUrl] = useState<string>("");
 
   const { uploadImage } = useUploadStore();
-  const {
-    addUsers,
-    //loading,
-    //error
-  } = useUserStore();
+  const { addUsers } = useUserStore();
 
   // Initialize form with react-hook-form
   const {
@@ -25,7 +21,7 @@ const Form = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    //setValue,
+    setError,
   } = useForm<user>();
 
   const onSubmit: SubmitHandler<user> = async (data) => {
@@ -33,26 +29,32 @@ const Form = () => {
     reset();
   };
 
-  // Handle PDF file upload
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     if (file) {
+      const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
+
+      // Check the file size before attempting to upload
+      if (file.size > MAX_FILE_SIZE) {
+        setError("photo_url", {
+          type: "manual",
+          message: "ფოტო უნდა იყოს 3 მეგაბაიტზე ნაკლები",
+        });
+        return;
+      }
       const response = await uploadImage(file);
       setUrl(response);
-      console.log(response);
     }
   };
-
-  console.log(url);
 
   return (
     <form
       className="border border-gray-300 rounded-lg p-10 bg-white shadow-md"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <fieldset className="grid grid-cols-2 ">
+      <fieldset className="grid grid-cols-2 gap-10">
         <div className="flex flex-col gap-5">
           <div className="flex gap-2 items-end">
             <label

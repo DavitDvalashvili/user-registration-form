@@ -14,19 +14,24 @@ export const useUploadStore = create(() => ({
     formData.append("file", file);
 
     try {
-      const response = await axios.post(`${Api_Url}/uploadImage`, formData);
-      if (response && response.status === 400) {
-        console.error(response);
-        return response.status;
-      }
+      const response = await axios.post(`${Api_Url}uploadImage`, formData);
+
+      // Check for successful upload
       if (response && response.status === 200) {
         const { photoUrl } = response.data;
         return photoUrl;
-      } else {
-        console.error("Upload failed or response is missing data.");
       }
     } catch (error) {
-      console.error("Error uploading file:", error);
+      // Handle Axios errors specifically
+      if (axios.isAxiosError(error)) {
+        // Check if it's a 400 error, which includes file size errors
+        if (error.response && error.response.status === 400) {
+          const errorMessage = error.response.data.message;
+          return errorMessage;
+        }
+      } else {
+        console.error("Error uploading file:", error);
+      }
     }
   },
 }));

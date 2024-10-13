@@ -8,6 +8,7 @@ const Api_Url = import.meta.env.VITE_API_URL;
 export const useUserStore = create<usersState>((set) => ({
   loading: false,
   error: "",
+  user: null,
   usersData: {
     total: 1,
     page: 1,
@@ -23,8 +24,34 @@ export const useUserStore = create<usersState>((set) => ({
       set({ usersData: response.data, error: "" });
     } catch (error) {
       console.error("Error fetching users data:", error);
-      console.log(error);
     } finally {
+      set({ loading: false });
+    }
+  },
+
+  // Fetch user based on given parameters
+  getUser: async (id: string) => {
+    set({ loading: true });
+
+    try {
+      // Fetch the user data from the server
+      const response = await axios.get(`${Api_Url}users/get/${id}`);
+
+      // Assuming the response contains user data in response.data
+      const user = response.data;
+
+      // Update the state with the fetched user data
+      set((state) => ({
+        ...state,
+        usersData: {
+          ...state.usersData,
+          user,
+        },
+      }));
+    } catch (error) {
+      console.error("Error fetching user's data:", error);
+    } finally {
+      // Always stop the loading state after the fetch attempt
       set({ loading: false });
     }
   },

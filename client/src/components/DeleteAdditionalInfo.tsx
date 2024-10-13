@@ -4,6 +4,7 @@ import { useUserStore } from "../store/userStore";
 const DeleteAdditionalInfo = ({
   deleteTarget,
   setDeleteAdditionalInfo,
+  setShowDetailView,
   user,
 }: DeleteAdditional) => {
   const { deleteAlternativeContact } = useUserStore();
@@ -12,6 +13,7 @@ const DeleteAdditionalInfo = ({
   const handleDelete = async () => {
     await deleteAlternativeContact({ id: user.id, type: deleteTarget });
     setDeleteAdditionalInfo(false);
+    setShowDetailView(false);
   };
 
   return (
