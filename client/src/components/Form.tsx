@@ -175,7 +175,10 @@ const Form = () => {
               <span className="text-[12px] text-ChinChinCherry h-4">
                 {errors.position?.message}
               </span>
-              <CustomSelect register={register} />
+              <CustomSelect
+                register={register}
+                selectedPosition="აირჩიე პოზიცია"
+              />
             </div>
           </div>
           <div className="flex gap-2 items-end w-[458px]">

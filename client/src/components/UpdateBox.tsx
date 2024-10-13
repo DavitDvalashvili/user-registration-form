@@ -11,6 +11,7 @@ import { updateProps } from "../types/usersType";
 const UpdateBox = ({ user }: updateProps) => {
   const [showAltMobile, setShowAltMobile] = useState<boolean>(false);
   const [showAltEmail, setShowAlEmail] = useState<boolean>(false);
+  const [selectedPosition, setSelectedPosition] = useState<string>("");
   const [url, setUrl] = useState<string>("");
 
   const { uploadImage } = useUploadStore();
@@ -55,6 +56,9 @@ const UpdateBox = ({ user }: updateProps) => {
     if (user) {
       (Object.keys(user) as Array<keyof typeof user>).forEach((field) => {
         setValue(field, user[field]);
+        if (field == "position") {
+          setSelectedPosition(user[field]);
+        }
       });
     }
   }, [user, setValue]);
@@ -187,7 +191,10 @@ const UpdateBox = ({ user }: updateProps) => {
                 <span className="text-[12px] text-ChinChinCherry h-4">
                   {errors.position?.message}
                 </span>
-                <CustomSelect register={register} setValue={setValue} />
+                <CustomSelect
+                  register={register}
+                  selectedPosition={selectedPosition}
+                />
               </div>
             </div>
             <div className="flex gap-2 items-end w-[458px]">
