@@ -140,7 +140,13 @@ const DetailView = ({ user, setShowDetailView }: DetailViewProps) => {
           setShowDetailView={setShowDetailView}
         />
       )}
-      {showUpdate && <UpdateBox user={user} setShowUpdate={setShowUpdate} />}
+      {showUpdate && (
+        <UpdateBox
+          user={user}
+          setShowUpdate={setShowUpdate}
+          setShowDetailView={setShowDetailView}
+        />
+      )}
     </div>
   );
 };
