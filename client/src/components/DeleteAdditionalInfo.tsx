@@ -4,16 +4,15 @@ import { useUserStore } from "../store/userStore";
 const DeleteAdditionalInfo = ({
   deleteTarget,
   setDeleteAdditionalInfo,
-  setShowDetailView,
   user,
 }: DeleteAdditional) => {
-  const { deleteAlternativeContact } = useUserStore();
+  const { deleteAlternativeContact, getUser } = useUserStore();
 
   // Delete component and navigate to components page
   const handleDelete = async () => {
     await deleteAlternativeContact({ id: user.id, type: deleteTarget });
+    await getUser(user.id);
     setDeleteAdditionalInfo(false);
-    setShowDetailView(false);
   };
 
   return (

@@ -101,7 +101,7 @@ const Users = () => {
         <NotFound />
       )}
       {showDetailView && (
-        <DetailView user={targetUser} setShowDetailView={setShowDetailView} />
+        <DetailView id={targetUser.id} setShowDetailView={setShowDetailView} />
       )}
       {showDelete && (
         <DeleteBox

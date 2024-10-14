@@ -8,14 +8,14 @@ import { useUploadStore } from "../store/upload";
 import { useUserStore } from "../store/userStore";
 import { updateProps } from "../types/usersType";
 
-const UpdateBox = ({ user, setShowUpdate, setShowDetailView }: updateProps) => {
+const UpdateBox = ({ user, setShowUpdate }: updateProps) => {
   const [showAltMobile, setShowAltMobile] = useState<boolean>(false);
   const [showAltEmail, setShowAlEmail] = useState<boolean>(false);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
   const [url, setUrl] = useState<string>("");
 
   const { uploadImage } = useUploadStore();
-  const { updateUser, getUsers } = useUserStore();
+  const { updateUser, getUsers, getUser } = useUserStore();
 
   // Initialize form with react-hook-form
   const {
@@ -29,8 +29,8 @@ const UpdateBox = ({ user, setShowUpdate, setShowDetailView }: updateProps) => {
   const onSubmit: SubmitHandler<user> = async (data) => {
     await updateUser({ ...data, photo_url: url });
     await getUsers({ searchTerm: "", page: "" });
+    await getUser(user.id);
     setShowUpdate(false);
-    setShowDetailView(false);
   };
 
   const handleImageChange = async (

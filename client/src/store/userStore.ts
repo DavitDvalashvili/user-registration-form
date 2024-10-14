@@ -37,17 +37,7 @@ export const useUserStore = create<usersState>((set) => ({
       // Fetch the user data from the server
       const response = await axios.get(`${Api_Url}users/get/${id}`);
 
-      // Assuming the response contains user data in response.data
-      const user = response.data;
-
-      // Update the state with the fetched user data
-      set((state) => ({
-        ...state,
-        usersData: {
-          ...state.usersData,
-          user,
-        },
-      }));
+      set({ user: response.data, error: "" });
     } catch (error) {
       console.error("Error fetching user's data:", error);
     } finally {

@@ -2,12 +2,14 @@ export type usersState = {
   loading: boolean;
   usersData: userData;
   error: string;
+  user: null | user;
   getUsers: (params: { searchTerm: string; page: string }) => Promise<void>;
   deleteAlternativeContact: (params: {
     id: string;
     type: string;
   }) => Promise<void>;
   addUsers: (newUser: user) => Promise<void>;
+  getUser: (id: string) => Promise<void>;
   updateUser: (user: user) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;
 };
@@ -45,7 +47,7 @@ export type SearchBoxProps = {
 };
 
 export type DetailViewProps = {
-  user: user;
+  id: string;
   setShowDetailView: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -60,11 +62,9 @@ export type DeleteAdditional = {
   deleteTarget: string;
   user: user;
   setDeleteAdditionalInfo: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowDetailView: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type updateProps = {
   user: user;
   setShowUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowDetailView: React.Dispatch<React.SetStateAction<boolean>>;
 };
