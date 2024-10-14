@@ -2,7 +2,7 @@ import { DetailViewProps } from "../types/usersType";
 import { format } from "date-fns";
 import { FaMobileAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
-import DeleteAdditionalInfo from "./DeleteAdditionalInfo";
+import DeleteAdditionalInfo from "./DeleteAdditionalContact";
 import { useState } from "react";
 import UpdateBox from "./UpdateBox";
 import { useUserStore } from "../store/userStore";

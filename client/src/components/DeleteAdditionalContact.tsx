@@ -1,7 +1,7 @@
 import { DeleteAdditional } from "../types/usersType";
 import { useUserStore } from "../store/userStore";
 
-const DeleteAdditionalInfo = ({
+const DeleteAdditionalContact = ({
   deleteTarget,
   setDeleteAdditionalInfo,
   user,
@@ -44,4 +44,4 @@ const DeleteAdditionalInfo = ({
     </div>
   );
 };
-export default DeleteAdditionalInfo;
+export default DeleteAdditionalContact;
