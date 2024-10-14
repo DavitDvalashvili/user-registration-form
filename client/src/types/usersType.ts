@@ -65,4 +65,5 @@ export type DeleteAdditional = {
 
 export type updateProps = {
   user: user;
+  setShowUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 };

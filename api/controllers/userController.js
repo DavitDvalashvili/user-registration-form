@@ -123,7 +123,7 @@ export const addUser = async (req, res) => {
       alternative_email,
       mobile_number,
       alternative_mobile_number,
-      photo_url = "../../public/image.png",
+      photo_url,
       position,
       gender,
     } = req.body;

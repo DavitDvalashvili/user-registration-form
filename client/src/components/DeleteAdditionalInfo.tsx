@@ -17,11 +17,15 @@ const DeleteAdditionalInfo = ({
   };
 
   return (
-    <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-6">
+    <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-6 ">
       <div className=" border border-gray-300 rounded-lg bg-white shadow-md mb-4 p-10">
         <div className="flex justify-start items-center gap-2 flex-col">
           <p className="font-semibold">ნამდვილად გსურთ წაშალოთ</p>
-          <p className=" text-NorthAtlanticBreeze">{deleteTarget}</p>
+          <p className=" text-NorthAtlanticBreeze">
+            {deleteTarget == "email"
+              ? "ალტერნატიული მეილი"
+              : "ალტერნატიული მობილურის ნომერი"}
+          </p>
         </div>
         <div className="flex justify-center items-center gap-4 pt-5">
           <button

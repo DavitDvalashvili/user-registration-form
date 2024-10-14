@@ -10,8 +10,7 @@ import { useUserStore } from "../store/userStore";
 const Form = () => {
   const [showAltMobile, setShowAltMobile] = useState<boolean>(false);
   const [showAltEmail, setShowAlEmail] = useState<boolean>(false);
-  const [url, setUrl] = useState<string>("");
-
+  const [url, setUrl] = useState<string>("../../public/user.png");
   const { uploadImage } = useUploadStore();
   const { addUsers } = useUserStore();
 

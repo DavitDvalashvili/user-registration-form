@@ -8,7 +8,7 @@ import { useUploadStore } from "../store/upload";
 import { useUserStore } from "../store/userStore";
 import { updateProps } from "../types/usersType";
 
-const UpdateBox = ({ user }: updateProps) => {
+const UpdateBox = ({ user, setShowUpdate }: updateProps) => {
   const [showAltMobile, setShowAltMobile] = useState<boolean>(false);
   const [showAltEmail, setShowAlEmail] = useState<boolean>(false);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
@@ -22,14 +22,13 @@ const UpdateBox = ({ user }: updateProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setError,
     setValue,
   } = useForm<user>();
 
   const onSubmit: SubmitHandler<user> = async (data) => {
     await updateUser({ ...data, photo_url: url });
-    reset();
+    setShowUpdate(false);
   };
 
   const handleImageChange = async (

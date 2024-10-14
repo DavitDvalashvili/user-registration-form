@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination";
 import DetailView from "../components/DetailView";
 import { user } from "../types/usersType";
 import DeleteBox from "../components/DeleteBox";
+import NotFound from "../components/NotFound";
 
 const Users = () => {
   const { getUsers, usersData } = useUserStore();
@@ -97,7 +98,7 @@ const Users = () => {
           </tbody>
         </table>
       ) : (
-        <div>No users available</div>
+        <NotFound />
       )}
       {showDetailView && (
         <DetailView user={targetUser} setShowDetailView={setShowDetailView} />
