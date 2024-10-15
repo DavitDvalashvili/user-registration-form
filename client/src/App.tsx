@@ -6,6 +6,8 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import Header from "./components/Header";
@@ -34,6 +36,7 @@ function App() {
   return (
     <div className="font-bpg">
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }

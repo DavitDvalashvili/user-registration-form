@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { usersState, user } from "../types/usersType";
+import { showSuccess, showError } from "../toast/ToastUtils";
 
 // Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
@@ -58,15 +59,18 @@ export const useUserStore = create<usersState>((set) => ({
           users: [...state.usersData.users, response.data],
         },
       }));
+      showSuccess("მომხმარებელი დაემატა წარმატებით");
     } catch (error) {
       // Check if the error is an AxiosError and has a response
       if (axios.isAxiosError(error) && error.response) {
         if (error.response.status === 409) {
           set({ error: "User already exists" });
         }
+        showError("მომხმარებლი უკვე არსებობს");
       } else {
         console.error("Error adding user:", error);
         set({ error: "Error adding user" });
+        showError("შეცდომა მომხმარებლის ინფორმაციის დამატებისას");
       }
     }
   },
@@ -84,8 +88,10 @@ export const useUserStore = create<usersState>((set) => ({
           users: [...state.usersData.users, response.data],
         },
       }));
+      showSuccess("მომხმარებლის ინფორმაცია განახლდა წარმატებით");
     } catch (error) {
       console.error("Error updating component:", error);
+      showError("შეცდომა მომხმარებლის ინფორმაციის განახლებისას");
     }
   },
 
@@ -98,8 +104,10 @@ export const useUserStore = create<usersState>((set) => ({
           users: state.usersData.users.filter((user) => user.id !== id),
         },
       }));
+      showSuccess("მომხმარებლის წაიშალა წარმატებით");
     } catch (error) {
       console.error("Error deleting user:", error);
+      showError("შეცდომა მომხმარებლის წაშლისას");
     }
   },
 
@@ -130,8 +138,18 @@ export const useUserStore = create<usersState>((set) => ({
           ),
         },
       }));
+      if (type == "email") {
+        showSuccess("ალტერნატიული მეილი წარმატებით წაიშალა");
+      } else {
+        showSuccess("ალტერნატიული მობილურის ნომერი წარმატებით წაიშალა");
+      }
     } catch (error) {
       console.error("Error deleting user:", error);
+      if (type == "email") {
+        showError("შეცდომა ალტერნატიული მეილის წაშლისას");
+      } else {
+        showSuccess("შეცდომა ალტერნატიული მობილურის ნომერი წაიშალისას");
+      }
     }
   },
 }));
