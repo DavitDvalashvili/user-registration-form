@@ -8,6 +8,7 @@ interface InputWrapperProps {
   showAltEmail: boolean;
   showAltMobile: boolean;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedPosition: string;
 }
 
 const InputWrapper = ({
@@ -16,6 +17,7 @@ const InputWrapper = ({
   showAltEmail,
   showAltMobile,
   handleImageChange,
+  selectedPosition,
 }: InputWrapperProps) => {
   return (
     <fieldset className="grid grid-cols-2 gap-10">
@@ -141,7 +143,7 @@ const InputWrapper = ({
             </span>
             <CustomSelect
               register={register}
-              selectedPosition="აირჩიე პოზიცია"
+              selectedPosition={selectedPosition}
             />
           </div>
         </div>

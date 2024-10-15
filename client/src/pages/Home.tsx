@@ -60,6 +60,7 @@ const Home = () => {
           showAltEmail={showAltEmail}
           showAltMobile={showAltMobile}
           handleImageChange={handleImageChange}
+          selectedPosition="აირჩიე პოზიცია"
         />
 
         <div className="flex gap-4 my-5">
