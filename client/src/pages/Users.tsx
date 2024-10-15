@@ -15,6 +15,7 @@ const Users = () => {
   const [showDetailView, setShowDetailView] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
 
+  // Fetch users data whenever the search term or page changes
   useEffect(() => {
     getUsers({ searchTerm: `${searchTerm}`, page: `${page}` });
   }, [getUsers, searchTerm, page]);

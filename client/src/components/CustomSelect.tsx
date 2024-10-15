@@ -12,14 +12,17 @@ const CustomSelect = ({ register, selectedPosition }: CustomSelectProps) => {
   const [position, setPosition] = useState<string>(selectedPosition || ""); // Initialize with selectedPosition
   const { getPositions, positions } = usePositionStore();
 
+  // Fetch positions on component mount
   useEffect(() => {
     getPositions();
   }, [getPositions]);
 
+  // Update local state when the selectedPosition prop changes
   useEffect(() => {
     setPosition(selectedPosition);
   }, [selectedPosition]);
 
+  // Handle change in select element
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPosition(e.target.value); // Update state when user selects a position
   };

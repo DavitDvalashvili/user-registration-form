@@ -8,6 +8,7 @@ import { useUserStore } from "../store/userStore";
 import InputWrapper from "./../components/InputWrapper";
 
 const Home = () => {
+  // State variables for controlling alternative mobile and email visibility, and for storing image URL
   const [showAltMobile, setShowAltMobile] = useState<boolean>(false);
   const [showAltEmail, setShowAlEmail] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("../../public/user.png");
@@ -28,6 +29,7 @@ const Home = () => {
     reset();
   };
 
+  // Function to handle image file selection and upload
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
