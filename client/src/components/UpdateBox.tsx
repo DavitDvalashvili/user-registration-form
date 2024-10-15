@@ -112,7 +112,7 @@ const UpdateBox = ({ user, setShowUpdate }: updateProps) => {
 
         <button
           type="submit"
-          className=" px-4 py-2 bg-green text-white rounded-md cursor-pointer text-[12px] transition-transform duration-200 hover:shadow-xl "
+          className="block mx-auto px-4 py-2 bg-green text-white rounded-md cursor-pointer text-[12px] transition-transform duration-200 hover:shadow-xl "
         >
           მომხმარებლის განახლება
         </button>
